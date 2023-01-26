@@ -1,0 +1,71 @@
+﻿@page "/category/{Id}"
+@using Project2023.Shared.Domain
+@using Project2023.Server.IRepository
+@using Microsoft.AspNetCore.Components.Routing
+@inject ICategoryRepository CategoryRepository
+@inject IJSRuntime js
+@inject NavigationManager NavigationManager
+
+<h1>Category</h1>
+
+<div>
+    <table>
+        <tr>
+            <td>Category ID:</td>
+            <td>@category.Id</td>
+        </tr>
+        <tr>
+            <td>Category Name:</td>
+            <td>@category.Name</td>
+        </tr>
+        <tr>
+            <td>Category Type:</td>
+            <td>@category.Type</td>
+        </tr>
+        <tr>
+            <td>Category Tags</td>
+            <td>@category.Tags</td>
+        </tr>
+    </table>
+</div>
+
+<div>
+    <a href="#" class="btn btn-primary" @onclick="View">
+        <span class="oi oi-book"></span> View
+    </a>
+    <a href="#" class="btn btn-warning" @onclick="Edit">
+        <span class="oi oi-pencil"></span> Edit
+    </a>
+    <button class="btn btn-danger" @onclick="@(() => Delete(category.Id))">
+        <span class="oi oi-delete"></span> Delete
+    </button>
+</div>
+
+@code {
+        [Parameter]
+        public int Id { get; set; }
+private Category category;
+
+    protected override async Task OnInitializedAsync()
+    {
+        category = await CategoryRepository.GetCategory(Id);
+    }
+
+    private async Task Delete(int id)
+    {
+        var response = await CategoryRepository.DeleteCategory(id);
+        if (response.Success)
+        {
+            // Display success message to user
+            await js.InvokeAsync<object>("alert", "Category deleted successfully!");
+
+            // Navigate back to the category list page
+            NavigationManager.NavigateTo("/category");
+        }
+        else
+        {
+            // Display error message to user
+            await js.InvokeAsync<object>("alert", "An error occurred while deleting the category. Please try again.");
+        }
+    }
+}

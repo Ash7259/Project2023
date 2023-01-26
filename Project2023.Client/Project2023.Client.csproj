@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Project2023.Shared\Project2023.Shared.csproj" />
+    <ProjectReference Include="..\Project2023\Project2023.Server.csproj" />
+  </ItemGroup>
+
+</Project>

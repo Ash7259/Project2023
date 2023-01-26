@@ -1,0 +1,37 @@
+﻿@page "/product/{Id}"
+@using Project2023.Shared.Domain
+@using Project2023.Server.IRepository
+@inject IProductRepository ProductRepository
+<h1>Product</h1>
+
+<div>
+    <table>
+        <tr>
+            <td>Product ID:</td>
+            <td>@product.Id</td>
+        </tr>
+        <tr>
+            <td>Product Name:</td>
+            <td>@product.Name</td>
+        </tr>
+        <tr>
+            <td>Category ID:</td>
+            <td>@product.CategoryId</td>
+        </tr>
+        <tr>
+            <td>Product Rating:</td>
+            <td>@product.Rating</td>
+        </tr>
+    </table>
+</div>
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    private Product product;
+
+    protected override async Task OnInitializedAsync()
+    {
+        product = await ProductRepository.GetProductById(Id);
+    }
+}
