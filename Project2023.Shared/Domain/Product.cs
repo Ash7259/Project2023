@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Project23.Shared.Domain;
+using System;
 
 namespace Project2023.Shared.Domain
 {

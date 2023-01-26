@@ -36,7 +36,7 @@
     <a href="#" class="btn btn-warning" @onclick="Edit">
         <span class="oi oi-pencil"></span> Edit
     </a>
-    <button class="btn btn-danger" @onclick="@(() => Delete(category.Id))">
+    <button class="btn btn-danger" @onclick="@(()=>Delete(category.Id))">
         <span class="oi oi-delete"></span> Delete
     </button>
 </div>
